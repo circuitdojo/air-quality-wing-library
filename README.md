@@ -10,7 +10,7 @@ You can use it with an Adafruit Feather compatible board or the newest mesh enab
 
 ## Usage
 
-Insert a Xenon, Boron or Argon into a Air Quality Wing. Create a new project and import the library. (Search for `AirQuality`)
+Insert a Xenon, Boron or Argon into a Air Quality Wing. Create a new project and import the library. (Search for `AirQualityWing`)
 
 Here's a base example. (Also available under `usage/usage.ino`)
 
@@ -23,7 +23,7 @@ Here's a base example. (Also available under `usage/usage.ino`)
  * License: GNU GPLv3
  */
 
-#include "AirQuality.h"
+#include "AirQualityWing.h"
 #include "board.h"
 
 // Logger
@@ -32,14 +32,14 @@ SerialLogHandler logHandler(115200, LOG_LEVEL_ERROR, {
 });
 
 // Forward declaration of event handler
-void AirQualityEvent();
+void AirQualityWingEvent();
 
-// AirQuality object
-AirQuality AirQual = AirQuality();
+// AirQualityWing object
+AirQualityWing AirQual = AirQualityWing();
 
 // Handler is called in main loop.
 // Ok to run Particle.Publish
-void AirQualityEvent() {
+void AirQualityWingEvent() {
 
   Log.trace("pub");
 
@@ -74,7 +74,7 @@ void setup() {
   Wire.begin();
 
   // Default settings
-  AirQualitySettings_t defaultSettings =
+  AirQualityWingSettings_t defaultSettings =
   { 20000, //Measurement Interval
     true,                 //Has HPMA115
     true,                 //Has CCS811
@@ -87,7 +87,7 @@ void setup() {
   };
 
   // Setup & Begin Air Quality
-  AirQual.setup(AirQualityEvent, defaultSettings);
+  AirQual.setup(AirQualityWingEvent, defaultSettings);
   AirQual.begin();
 
   // Set up cloud variable
@@ -142,7 +142,7 @@ Modify the sources in <src> and <examples> with the new behavior.
 
 To compile an example, use `particle compile xenon examples/usage/usage.ino` command in [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli#update-your-device-remotely) or use our [Desktop IDE](https://docs.particle.io/guide/tools-and-features/dev/#compiling-code).
 
-After your changes are done you can upload them with `particle library upload` or `Upload` command in the IDE. This will create a private (only visible by you) library that you can use in other projects. Do `particle library add AirQuality_myname` to add the library to a project on your machine or add the AirQuality_myname library to a project on the Web IDE or Desktop IDE.
+After your changes are done you can upload them with `particle library upload` or `Upload` command in the IDE. This will create a private (only visible by you) library that you can use in other projects. Do `particle library add AirQualityWing_myname` to add the library to a project on your machine or add the AirQualityWing_myname library to a project on the Web IDE or Desktop IDE.
 
 At this point, you can create a [GitHub pull request](https://help.github.com/articles/about-pull-requests/) with your changes to the original library.
 

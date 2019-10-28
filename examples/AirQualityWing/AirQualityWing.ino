@@ -6,7 +6,7 @@
  * License: GNU GPLv3
  */
 
-#include "AirQuality.h"
+#include "AirQualityWing.h"
 #include "board.h"
 
 // Logger
@@ -15,14 +15,14 @@ SerialLogHandler logHandler(115200, LOG_LEVEL_ERROR, {
 });
 
 // Forward declaration of event handler
-void AirQualityEvent();
+void AirQualityWingEvent();
 
-// AirQuality object
-AirQuality AirQual = AirQuality();
+// AirQualityWing object
+AirQualityWing AirQual = AirQualityWing();
 
 // Handler is called in main loop.
 // Ok to run Particle.Publish
-void AirQualityEvent() {
+void AirQualityWingEvent() {
 
   Log.trace("pub");
 
@@ -57,7 +57,7 @@ void setup() {
   Wire.begin();
 
   // Default settings
-  AirQualitySettings_t defaultSettings =
+  AirQualityWingSettings_t defaultSettings =
   { MEASUREMENT_DELAY_MS, //Measurement Interval
     true,                 //Has HPMA115
     true,                 //Has CCS811
@@ -70,7 +70,7 @@ void setup() {
   };
 
   // Setup & Begin Air Quality
-  AirQual.setup(AirQualityEvent, defaultSettings);
+  AirQual.setup(AirQualityWingEvent, defaultSettings);
   AirQual.begin();
 
   // Set up cloud variable
