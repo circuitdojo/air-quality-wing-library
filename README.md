@@ -134,6 +134,12 @@ There's also an example for the [Canary](https://www.hackster.io/jaredwolff/the-
 particle compile xenon examples/CanaryExample/ src/
 ```
 
+Then you can flash the file via the Particle cloud
+
+```
+particle flash <device name> xenon_firmware_12345.bin
+```
+
 ## Documentation
 
 TODO: Describe `AirQualityWing` Library
