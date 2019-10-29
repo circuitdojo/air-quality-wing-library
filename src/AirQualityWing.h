@@ -21,7 +21,7 @@
 #define HPMA_TIMEOUT_MS 10000
 
 typedef enum {
-  success = NRF_SUCCESS,
+  success = 0,
   hpma115_error,
   ccs811_error,
   si7021_error
