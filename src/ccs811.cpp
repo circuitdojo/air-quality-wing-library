@@ -156,7 +156,7 @@ uint32_t CCS811::restore_baseline() {
 
   // If it's uninitialized, return invalid data
   if ( baseline[0] == 0xff && baseline[1] == 0xff) {
-    return NRF_ERROR_INVALID_DATA;
+    return CCS811_DAT_INVALID;
   }
 
   // Write to the chip
