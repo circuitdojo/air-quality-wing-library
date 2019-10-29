@@ -1,6 +1,12 @@
 #ifndef AIR_QUALITY_H
 #define AIR_QUALITY_H
 
+#include "Particle.h"
+
+#if (PLATFORM_ID != PLATFORM_XENON) && (PLATFORM_ID != PLATFORM_ARGON) && (PLATFORM_ID != PLATFORM_BORON)
+#error The Air Quality Wing Library only supports Xenon, Argon and Boron.
+#endif
+
 #include "si7021.h"
 #include "ccs811.h"
 #include "hpma115.h"
