@@ -1,12 +1,14 @@
-# Air Quality Wing for Particle Mesh Library!
+# Air Quality Wing Library! (Deprecated)
 
 ![Render](images/render.png)
 
-The Air Quality Wing for Particle Mesh (Previously Particle Squared) is a circuit board that helps you monitor the air quality around you. This repository is the code for the Air Quality Wing which enables you to monitor humidity, temperature, air particulates, eC02 and TVOCs in one small package.
+The Air Quality Wing (Previously Particle Squared) is a circuit board that helps you monitor the air quality around you. This repository is the code for the Air Quality Wing which enables you to monitor humidity, temperature, air particulates, eC02 and TVOCs in one small package.
 
-You can use it with an Adafruit Feather compatible board or the newest mesh enabled boards from Particle. [For more information click here.](https://www.jaredwolff.com/particle-squared-air-quality-sensor/) If you want to use this library with other Particle boards, you'll have to modify `board.h` to suit your needs.
+You can use it with an Adafruit Feather compatible board. [For more information click here.](https://docs.jaredwolff.com/air-quality-wing/index.html)
 
 [To get yours go here.](https://www.jaredwolff.com/store/air-quality-wing/)
+
+*Update 1/8/2022*: This sample is now deprecated. Please see the [Zephyr samples](https://github.com/circuitdojo/air-quality-wing-zephyr-demo) for the latest supported working code.
 
 ## Usage
 
@@ -122,42 +124,6 @@ void loop() {
 
 }
 ```
-
-## Other Examples
-
-There's also an example for the [Canary](https://www.hackster.io/jaredwolff/the-canary-a-portable-air-quality-monitor-99a1f4). Compile it like so:
-
-```
-particle compile xenon examples/CanaryExample/ src/
-```
-
-Then you can flash the file via the Particle cloud
-
-```
-particle flash <device name> xenon_firmware_12345.bin
-```
-
-## Documentation
-
-TODO: Describe `AirQualityWing` Library
-
-## Contributing
-
-Here's how you can make changes to this library and eventually contribute those changes back.
-
-To get started, [clone the library from GitHub to your local machine](https://help.github.com/articles/cloning-a-repository/).
-
-Change the name of the library in `library.properties` to something different. You can add your name at then end.
-
-Modify the sources in <src> and <examples> with the new behavior.
-
-To compile an example, use `particle compile xenon examples/AirQualityWingExample/ src/` command in [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli#update-your-device-remotely) or use our [Desktop IDE](https://docs.particle.io/guide/tools-and-features/dev/#compiling-code).
-
-After your changes are done you can upload them with `particle library upload` or `Upload` command in the IDE. This will create a private (only visible by you) library that you can use in other projects. Do `particle library add AirQualityWing_myname` to add the library to a project on your machine or add the AirQualityWing_myname library to a project on the Web IDE or Desktop IDE.
-
-At this point, you can create a [GitHub pull request](https://help.github.com/articles/about-pull-requests/) with your changes to the original library.
-
-If you wish to make your library public, use `particle library publish` or `Publish` command.
 
 ## LICENSE
 Copyright 2019 Jared Wolff (Circuit Dojo LLC)
