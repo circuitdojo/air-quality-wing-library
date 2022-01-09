@@ -3,22 +3,14 @@
 
 #include "Particle.h"
 
-#if (PLATFORM_ID != PLATFORM_XENON) && (PLATFORM_ID != PLATFORM_ARGON) && (PLATFORM_ID != PLATFORM_BORON)
-#error The Air Quality Wing Library only supports Xenon, Argon and Boron.
+#if (PLATFORM_ID != PLATFORM_ARGON) && (PLATFORM_ID != PLATFORM_BORON)
+#error The Air Quality Wing Library only supports Argon and Boron.
 #endif
 
-#include "si7021.h"
-#include "ccs811.h"
+#include "shtc3.h"
+#include "sgp40.h"
 #include "hpma115.h"
 #include "stdbool.h"
-
-// #ifdef HAS_SGP30
-// #include "sgp30.h"
-// #endif
-
-// #ifdef HAS_BME680
-// #include "bsec.h"
-// #endif
 
 // Delay and timing related contsants
 #define MEASUREMENT_DELAY_S 120
@@ -26,38 +18,40 @@
 #define MIN_MEASUREMENT_DELAY_MS 10000
 #define HPMA_TIMEOUT_MS 10000
 
-typedef enum {
+typedef enum
+{
   success = 0,
+  shtc3_error,
+  sgp40_error,
   hpma115_error,
-  ccs811_error,
-  si7021_error
 } AirQualityWingError_t;
 
 // Structure for holding data.
-typedef struct {
-  struct {
+typedef struct
+{
+  struct
+  {
     bool hasData;
-    ccs811_data_t data;
-  } ccs811;
-  struct {
+    sgp40_data_t data;
+  } sgp40;
+  struct
+  {
     bool hasData;
-    si7021_data_t data;
-  } si7021;
-  struct {
+    shtc3_data_t data;
+  } shtc3;
+  struct
+  {
     bool hasData;
     hpma115_data_t data;
   } hpma115;
 } AirQualityWingData_t;
 
-typedef struct {
+typedef struct
+{
   uint32_t interval;
   bool hasHPMA115;
-  bool hasCCS811;
-  bool hasSi7021;
-  uint8_t ccs811Address;
-  uint8_t ccs811IntPin;
-  uint8_t ccs811RstPin;
-  uint8_t ccs811WakePin;
+  bool hasSGP40;
+  bool hasSHTC3;
   uint8_t hpma115IntPin;
 } AirQualityWingSettings_t;
 
@@ -73,22 +67,11 @@ private:
   AirQualityWingSettings_t settings_;
 
   // Sensor objects
-  Si7021  si7021;
-  CCS811  ccs811;
+  SHTC3 shtc3;
   HPMA115 hpma115;
-
-  void ccs811Event();
-
-  // #ifdef HAS_SGP30
-  // static SGP30   sgp30 = SGP30();
-  // #endif
-
-  // #ifdef HAS_BME680
-  // static Bsec    bsec = Bsec();
-  // #endif
+  SGP40 sgp40;
 
   // Variables
-  // TODO: init these guys
   Timer *measurementTimer;
   Timer *hpmaTimer;
 
@@ -96,6 +79,7 @@ private:
   void hpmaEvent();
   void measureTimerEvent();
   void hpmaTimerEvent();
+  void sgpTimerEvent();
 
   // Static var
   bool measurementStart;
@@ -106,11 +90,7 @@ private:
   // Data
   AirQualityWingData_t data;
 
-  // #ifdef HAS_SGP30
-  // Timer sgp30_timer(SGP30_READ_INTERVAL, sgp30_timer_handler);
-  // #endif
 public:
-
   // Using defaults
   AirQualityWing();
 
